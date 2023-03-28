@@ -1,0 +1,47 @@
+actor "User" as user
+participant "Recipe" as recipe
+participant "Feature" as feature 
+participant "Check" as check
+participant "Steps" as steps
+participant "Step" as step
+database "disk" as disk
+
+...Creation...
+user -> recipe ++ : instantiate class, params, and data
+
+...Basic IO and Data Storage...
+recipe -> recipe: .show_data() returns list of data names
+recipe -> disk ++ : .read(data_name)
+return: data as pandas.DataFrame
+
+...Adding Features...
+recipe -> feature ++ : .add_feature(func, func_params, step_params, ...)
+return: add feature to recipe.features
+
+...Adding Checks...
+recipe -> check ++ : .add_check(func, check_params)
+return: add check to recipe.checks
+
+...Creating Steps...
+recipe -> steps ++: ._prepare()
+steps -> step ++: steps.create_step(feature, checks)
+step -> step: look up data from recipe.data
+step -> step: create step.run() as feature.func(data, **func_params)
+step -> step: create step.check() as check(data, **check_params) for all checks
+return: repeat for all features
+return: steps created
+
+...Running...
+recipe -> steps ++: .run(), first do new ._prepare()
+steps -> step ++: for all features
+return: prepare the steps
+steps -> step ++: for each step
+step -> step: step.run()
+step -> step: run_all_checks()
+return: check results as columns in data frame. 
+steps -> disk ++: steps.write(pd.concat(check_data))
+return: confirmation
+return: user specifies output data, log, or none. 
+
+...Fin...
+return: close session

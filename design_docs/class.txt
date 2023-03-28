@@ -1,0 +1,49 @@
+interface "Recipe" as recipe {
+    + indir
+    + outdir
+    - read_func
+    - write_func
+    - steps
+    + data
+    + show_data(name)
+    + read(name)
+    + add_feature(func, *data, **params)
+    + add_check(func, exclude_step=[], modify_step={}, *data, **check_params)
+    - assign_data(name, path)
+    - prepare()
+    + run()
+}
+class "(Private) Steps" as steps {
+    steps
+    step_params
+    add_step()
+    create_step(feature, check, **step_params)
+}
+class "(Private) Feature" as feature {
+    func
+    data
+    feature_params
+    step_params
+}
+class "(Private) Check" as check {
+    func
+    data
+    exclude_step
+    modify_step
+    check_params
+}
+class "(Private) Step" as step {
+    data
+    func
+    checks
+    run()
+    run_all_checks()
+}
+
+
+'Relations
+recipe o-- feature
+recipe o-- check
+recipe *- steps
+steps o-- step
+feature -* step
