@@ -19,7 +19,7 @@ setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        "pandas==1.1.1"
+        "pandas>=1.1.1"
     ],
     python_requires=">=3.6",
 )
