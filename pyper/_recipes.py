@@ -114,6 +114,7 @@ class Recipe:
             aPipeline.add_step(stepname, feat, params)
             for chk in self.checks:
                 aPipeline.add_check_to(stepname, chk)
+            aPipeline.step_idx += 1
         return aPipeline
     #def plan(self):
         # Run _prepare. 

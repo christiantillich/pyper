@@ -20,13 +20,13 @@ class _Pipeline:
         self.steps = {}
     def add_step(self, name, feature, step_params):
         # Initialize a step object
-        self.steps[step_idx] = _Step(name, feature, step_params)
-        self.step_idx +=1
+        self.steps[self.step_idx] = _Step(name, feature, step_params)
+        # self.step_idx +=1
     def add_check_to(self, name, check):
         if name not in check.exclude_step:
             if name in check.modify_step:
                 check.check_params.update(check.modify_step[name])
-            self.steps[name].add_check(check)
+            self.steps[self.step_idx].add_check(check)
     def run_all(self, start = 0, stop = None):
         log = []
         if stop == None: 
