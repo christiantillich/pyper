@@ -1,0 +1,27 @@
+[build-system]
+requires = ['pip>=20.3', 'setuptools>=61']
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyper"
+dynamic = ['version']
+description="A tool for managing data preprocessing workflows."
+authors = [
+    {name = "Christian Tillich", email = "christian.tillich.walker@gmail.com"}
+]
+readme = "README.md"
+classifiers=[
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.6"
+dependencies=["pandas>=1.1.1"]
+
+[project.urls]
+Source="https://github.com/christiantillich/pyper/tree/main/"
+
+[tool.setuptools]
+packages = ["pyper"]
+
+[tool.setuptools.dynamic]
+version = {attr = "pyper.__version__"}
