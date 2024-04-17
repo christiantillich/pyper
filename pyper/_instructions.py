@@ -12,7 +12,7 @@ def _better_concat(lst, axis=0):
     lst = _lst_coerce(lst)
     if lst == []:
         return pd.DataFrame()
-    return pd.concat(lst, axis)
+    return pd.concat(lst, axis=axis)
 
 class _Pipeline:
     def __init__(self):
